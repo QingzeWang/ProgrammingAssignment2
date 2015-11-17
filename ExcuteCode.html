@@ -127,29 +127,34 @@ cacheSolve &lt;- function(x, ...) {
 </div>
 <div id="excute-the-code" class="section level2">
 <h2>Excute the code</h2>
-<pre class="r"><code>func &lt;- makeCacheMatrix(matrix(c(1,1,1,2), nrow = 2, ncol = 2))
+<pre class="r"><code>func &lt;- makeCacheMatrix()
 summary(func)</code></pre>
 <pre><code>##            Length Class  Mode    
 ## setmatrix  1      -none- function
 ## getmatrix  1      -none- function
 ## setinverse 1      -none- function
 ## getinverse 1      -none- function</code></pre>
-<pre class="r"><code>func$getmatrix</code></pre>
-<pre><code>## function() {
-##         x
-##     }
-## &lt;environment: 0x0000000004986390&gt;</code></pre>
-<pre class="r"><code>func$setmatrix</code></pre>
-<pre><code>## function(y) {
-##         x &lt;&lt;- y
-##         m &lt;&lt;- NULL
-##     }
-## &lt;environment: 0x0000000004986390&gt;</code></pre>
-<pre class="r"><code>func$getinverse</code></pre>
-<pre><code>## function() {
-##         m
-##     }
-## &lt;environment: 0x0000000004986390&gt;</code></pre>
+<pre class="r"><code>func$setmatrix(matrix(c(1,1,1,2), nrow = 2, ncol = 2))
+func$getmatrix()</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    1    1
+## [2,]    1    2</code></pre>
+<p>The above code chunck shows the input matrix</p>
+<pre class="r"><code>cacheSolve(func)</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    2   -1
+## [2,]   -1    1</code></pre>
+<p>The above code chunck shows that: since function “acheSolve” recives the matrix first time, it calculate and return the inverse of the input matrix</p>
+<pre class="r"><code>func$getinverse()</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    2   -1
+## [2,]   -1    1</code></pre>
+<pre class="r"><code>cacheSolve(func)</code></pre>
+<pre><code>## getting cached inverse of a previous calculated matrix</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    2   -1
+## [2,]   -1    1</code></pre>
+<p>The above code chunck shows that: since function “acheSolve” has recived the matrix before, it just calls the cached inverse of matrix and return it.</p>
 </div>
 </div>
 
